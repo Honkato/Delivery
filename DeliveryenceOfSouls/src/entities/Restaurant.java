@@ -1,6 +1,9 @@
 package entities;
 
+import components.ErrorPopUp;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Restaurant {
     private String name;
@@ -36,9 +39,43 @@ public class Restaurant {
         this.x = x;
         this.y = y;
     }
+    public boolean isAlpha(String name) {
+        char[] chars = name.toCharArray();
+
+        for (char c : chars) {
+            if (c == ' '){
+                continue;
+            }
+            if (c == '\''){
+                continue;
+            }
+            if(!Character.isLetter(c)) {
+                System.out.println(c);
+                return false;
+            }
+        }
+
+        return true;
+    }
     public void adicionarLanche(String nome, float preco){
+        for (Food food : getCardapio()){
+
+            if (Objects.equals(nome, food.getNome()) || !isAlpha(nome)){
+                System.out.println(nome);
+                new ErrorPopUp("ATENTITON","It already has a Food with this name, or is invalid");
+                return;
+            }
+        }
         comidas.add(new Food(idLancheAtual, nome, preco));
         idLancheAtual += 1;
+    }
+    public Food getFood(String food){
+        for(Food f : comidas){
+            if (Objects.equals(food, f.getNome())){
+                return f;
+            }
+        }
+        return null;
     }
     public void removerComida(int id){
         comidas.removeIf(comida -> comida.id == id);
