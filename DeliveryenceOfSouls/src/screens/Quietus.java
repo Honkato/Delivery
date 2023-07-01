@@ -31,7 +31,7 @@ public class Quietus extends JPanel {
         return modelQuietus;
     }
 
-    public Quietus(){
+    public Quietus(Color color){
         Border blackline;
 
         blackline = BorderFactory.createLineBorder(Color.BLACK);
@@ -46,7 +46,7 @@ public class Quietus extends JPanel {
 
         add(scrollPaneQuietus);
 
-        setBackground(Color.ORANGE);
+        setBackground(color);
         setLayout(null);
         setVisible(true);
     }
@@ -63,6 +63,9 @@ public class Quietus extends JPanel {
 
             int foodQtd = Integer.parseInt(foodQtdPrice.split(",")[1]);
             float foodPrice = Float.parseFloat(foodQtdPrice.split(",")[2]);
+            if (foodQtd == 0){
+                continue;
+            }
             if (!Objects.equals(currentName, lastName)){
                 lastName = currentName;
                 System.out.println(currentName);
@@ -73,7 +76,7 @@ public class Quietus extends JPanel {
             }
             subTotal += foodQtd * foodPrice;
             total += foodQtd * foodPrice;
-            modelQuietusPlaceholder.addElement(" -"+foodQtdPrice.replace(",", " - "));
+            modelQuietusPlaceholder.addElement(" -"+foodQtdPrice.replace(",", " ][ "));
         }
         modelQuietusPlaceholder.addElement("subtotal: R$"+ df.format(subTotal));
         modelQuietusPlaceholder.addElement("------------------------------");

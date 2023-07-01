@@ -20,7 +20,7 @@ public class ShoppingCart extends JPanel {
     private final JList<String> listaRequests = new JList<>(modelRequests);
     private final Button addRequestButton = new Button("/\\",370,512,75,25);
     private final Button removeRequestButton = new Button("\\/",370,557,75,25);
-    private final ArrayList<Restaurant> allRestaurants;
+    private ArrayList<Restaurant> allRestaurants;
     private ArrayList<Pedido> allRequests;
     private Restaurant selectedRestaurant;
     private Food selectedFood;
@@ -54,7 +54,18 @@ public class ShoppingCart extends JPanel {
         this.allRequests = allRequests;
     }
 
-    public ShoppingCart(ArrayList<Restaurant> restaurants, ArrayList<Pedido> pedidos){
+    public ArrayList<Restaurant> getAllRestaurants() {
+        return allRestaurants;
+    }
+
+    public void setAllRestaurants(ArrayList<Restaurant> allRestaurants) {
+        this.allRestaurants = allRestaurants;
+    }
+
+    public ShoppingCart(ArrayList<Restaurant> allRestaurants, ArrayList<Pedido> allRequests,Color color){
+        this.allRestaurants = allRestaurants;
+        this.allRequests = allRequests;
+
         Border blackline;
 
         blackline = BorderFactory.createLineBorder(Color.BLACK);
@@ -63,8 +74,6 @@ public class ShoppingCart extends JPanel {
         borderRequests = BorderFactory.createTitledBorder(blackline,"Requests");
         borderRequests.setTitleJustification(TitledBorder.CENTER);
 
-        this.allRestaurants = restaurants;
-        this.allRequests = pedidos;
         textX.setForeground(Color.ORANGE);
         textY.setForeground(Color.ORANGE);
         textX.setText("X");
@@ -113,7 +122,7 @@ public class ShoppingCart extends JPanel {
 
         addAllActions();
 
-        setBackground(new Color(120,50,120));
+        setBackground(color);
         setLayout(null);
         setVisible(true);
 
@@ -164,6 +173,7 @@ public class ShoppingCart extends JPanel {
     }
 
     public void updateRequests(){
+
         System.out.println("TESTE:       "+modelRequests);
         modelRequests.removeAllElements();
         for (Pedido p : allRequests) {

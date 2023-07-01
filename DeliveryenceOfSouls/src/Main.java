@@ -1,8 +1,4 @@
-import screens.Aplicativo;
-import screens.MainMenu;
-
-import javax.swing.*;
-import java.awt.*;
+import application.Aplicativo;
 
 public class Main {
     public static void main(String[] args) {

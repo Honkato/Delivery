@@ -1,7 +1,6 @@
 package configs;
 
 public class CadRes {
-    CadFoods cadFoods = new CadFoods();
     public CadRes(){
     }
     public String[] FirelinkShrimp(){

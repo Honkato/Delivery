@@ -26,20 +26,20 @@ public class Login extends JPanel {
         return usuarios;
     }
 
-    public Login(ArrayList<User> usuarios){
+    public Login(ArrayList<User> usuarios, Color color){
         this.usuarios = usuarios;
 
         nomeLabel.setForeground(Color.ORANGE);
         cpfLabel.setForeground(Color.ORANGE);
         nomeLabel.setBounds(100,80,40,20);
         cpfLabel.setBounds(100,180,40,20);
-        nome.setBounds(100,100, 100,50);
-        cpf.setBounds(100,200, 100,50);
+        nome.setBounds(100,100, 300,22);
+        cpf.setBounds(100,200, 300,22);
         add(nomeLabel);
         add(cpfLabel);
         add(nome);
         add(cpf);
-        setBackground(Color.RED);
+        setBackground(color);
         setLayout(null);
         setVisible(true);
 //        setSize(500,800);

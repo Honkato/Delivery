@@ -1,6 +1,7 @@
 package entities;
 
 import components.ErrorPopUp;
+import components.SuccessPopUp;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -40,6 +41,7 @@ public class Restaurant {
         this.y = y;
     }
     public boolean isAlpha(String name) {
+        System.out.println(name);
         char[] chars = name.toCharArray();
 
         for (char c : chars) {
@@ -57,17 +59,25 @@ public class Restaurant {
 
         return true;
     }
-    public void adicionarLanche(String nome, float preco){
+    public boolean adicionarLanche(String nome, float preco, boolean showMessage){
+        System.out.println(nome);
+        if (preco <= 0){
+            new ErrorPopUp("ATENTITON","Price is invalid!!!");
+            return false;
+        }
         for (Food food : getCardapio()){
-
             if (Objects.equals(nome, food.getNome()) || !isAlpha(nome)){
                 System.out.println(nome);
-                new ErrorPopUp("ATENTITON","It already has a Food with this name, or is invalid");
-                return;
+                new ErrorPopUp("ATETON","It already has a Food with this name, or is invalid");
+                return false;
             }
+        }
+        if (showMessage){
+            new SuccessPopUp("Success", "You Created ["+nome+"] in ["+name+"]");
         }
         comidas.add(new Food(idLancheAtual, nome, preco));
         idLancheAtual += 1;
+        return true;
     }
     public Food getFood(String food){
         for(Food f : comidas){
