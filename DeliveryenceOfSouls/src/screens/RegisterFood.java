@@ -21,7 +21,7 @@ public class RegisterFood extends JPanel {
     private JTextField nome = new JTextField();
     private JTextField price = new JTextField();
     public void getLastRestaurant(){
-        System.out.println(restaurantsComboBox.getMaximumRowCount());
+//        System.out.println(restaurantsComboBox.getMaximumRowCount());
         restaurantsComboBox.setSelectedIndex(restaurantsNames.size()-1);
     }
     public String getFoodName(){
@@ -77,7 +77,7 @@ public class RegisterFood extends JPanel {
         price.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println();
+//                System.out.println();
                 price.setEditable(
                         e.getKeyChar() >= '0' && e.getKeyChar() <= '9'
                         || e.getKeyChar() == KeyEvent.VK_BACK_SPACE
@@ -98,7 +98,7 @@ public class RegisterFood extends JPanel {
     public void refresh(){
         restaurantsNames.clear();
         for (Restaurant rest: restaurants){
-            System.out.println(rest.getName());
+//            System.out.println(rest.getName());
             restaurantsNames.add(rest.getName());
         }
         restaurantsComboBox.setSelectedIndex(0);
@@ -108,7 +108,7 @@ public class RegisterFood extends JPanel {
         for (Restaurant rest: restaurants){
             if (Objects.equals(rest.getName(), restaurant)){
                 setRestaurant(rest);
-                System.out.println(this.restaurant.getName());
+//                System.out.println(this.restaurant.getName());
             }
         }
     }

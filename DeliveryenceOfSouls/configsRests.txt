@@ -1,0 +1,5 @@
+Firelink Shrimp,0,0-Shrimp Burger,5.99F;Ashes of Lords of Cinders,29.99F;Mainden's Eyeball Cereal,15.99F;
+Solaire Soup,10,0-Estus Soup,20.99F;Solar Ray,23.99F;Praise The Sunday,30.99F;
+John Gourmet,60,70-Umbilical Cord Noodles,99.99F;Blood Beast Soup,69.99F;Celestial Being's Part,105.99F;
+Dadora,50,50-Esfirra Musica Popular Brasileira,11.99F;O melhor brownie do mundo,32.99F;Marmita da Semana,19.99F;
+Cosmic Moon,0,0-Moonlight Juice,299.99F;Focus Potion,5.99F;

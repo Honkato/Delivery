@@ -20,10 +20,10 @@ public class Quietus extends JPanel {
     public void setModelQuietus(DefaultListModel<String> modelQuietus) {
         this.modelQuietus = modelQuietus;
         scrollPaneQuietus.setViewportView(listaQuietus);
-        System.out.println("z");
-        System.out.println(this.modelQuietus);
-        System.out.println("zz");
-        System.out.println(modelQuietus);
+//        System.out.println("z");
+//        System.out.println(this.modelQuietus);
+//        System.out.println("zz");
+//        System.out.println(modelQuietus);
 //        System.out.println(this.listaQuietus);
     }
 
@@ -51,7 +51,7 @@ public class Quietus extends JPanel {
         setVisible(true);
     }
     public void refresh(){
-        System.out.println("zzz");
+//        System.out.println("zzz");
         String lastName = modelQuietus.get(0).split(" : ")[0];
         double subTotal = 0;
         double total = 0;
@@ -68,7 +68,7 @@ public class Quietus extends JPanel {
             }
             if (!Objects.equals(currentName, lastName)){
                 lastName = currentName;
-                System.out.println(currentName);
+//                System.out.println(currentName);
                 modelQuietusPlaceholder.addElement("subtotal: R$"+ df.format(subTotal));
                 subTotal = 0;
                 modelQuietusPlaceholder.addElement("------------------------------");

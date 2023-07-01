@@ -40,7 +40,7 @@ public class ShoppingCart extends JPanel {
 
     public void setUser(User user) {
         this.user = user;
-        System.out.println(user.getName());
+//        System.out.println(user.getName());
         userName.setText(Objects.equals(user.getName(), "") ?"admin":user.getName());
         fieldX.setText(String.valueOf(user.getEndereco()[0]));
         fieldY.setText(String.valueOf(user.getEndereco()[1]));
@@ -174,7 +174,7 @@ public class ShoppingCart extends JPanel {
 
     public void updateRequests(){
 
-        System.out.println("TESTE:       "+modelRequests);
+//        System.out.println("TESTE:       "+modelRequests);
         modelRequests.removeAllElements();
         for (Pedido p : allRequests) {
             if (p.getUsuarioPedido() == user && !p.isFinished()) {
@@ -209,7 +209,7 @@ public class ShoppingCart extends JPanel {
 
             String request = listaRequests.getSelectedValue();
 
-            System.out.println(request);
+//            System.out.println(request);
             String restaurante = request.split(" : ")[0];
             String comida = request.split(" : ")[1].split(",")[0];
 
@@ -224,11 +224,11 @@ public class ShoppingCart extends JPanel {
                     selectedFoodPrice.setText("R$" + df.format(selectedFood.getPreco()).replace(".", ","));
                 }
             }
-            System.out.println(selectedRestaurant);
-            System.out.println(selectedFood);
-
-            System.out.println(selectedRestaurant.getName());
-            System.out.println(selectedFood.getNome());
+//            System.out.println(selectedRestaurant);
+//            System.out.println(selectedFood);
+//
+//            System.out.println(selectedRestaurant.getName());
+//            System.out.println(selectedFood.getNome());
 
         });
     }

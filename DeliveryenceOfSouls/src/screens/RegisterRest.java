@@ -62,7 +62,7 @@ public class RegisterRest extends JPanel {
         x.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println();
+//                System.out.println();
                 x.setEditable(e.getKeyChar() >= '0' && e.getKeyChar() <= '9' || e.getKeyChar() == KeyEvent.VK_BACK_SPACE);
                 super.keyPressed(e);
             }

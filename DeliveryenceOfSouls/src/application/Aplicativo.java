@@ -3,6 +3,7 @@ package application;
 import components.Button;
 import components.ErrorPopUp;
 import components.SuccessPopUp;
+import configs.BasicConfigs;
 import configs.CadFoods;
 import configs.CadRes;
 import entities.Pedido;
@@ -33,6 +34,7 @@ public class Aplicativo extends JFrame {
     RegisterFood registerFood = new RegisterFood(restaurants, new Color(0x8C1D1D));
 
     // COMPONENTS
+    BasicConfigs bc = new BasicConfigs();
     Button logar = new Button("login");
     Button voltarLogar = new Button("voltar");
     Button voltarResLogar = new Button("voltar");
@@ -67,6 +69,14 @@ public class Aplicativo extends JFrame {
 
     public void setPedidos(ArrayList<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+    private Restaurant getRestaurant(String rest){
+        for (Restaurant restaurant: restaurants){
+            if (Objects.equals(restaurant.getName(), rest)){
+                return restaurant;
+            }
+        }
+        return null;
     }
 
     public Aplicativo(String title){
@@ -110,10 +120,15 @@ public class Aplicativo extends JFrame {
         voltarFoodLogar.setBounds(10, 10 , 100, 50);
         //------------------------  COMPONENTS //
         //------------------------ ADD
-        addAllUsers();
-        addAllRestaurants();
-        addAllFoods();
+        addBasicConfigsRestaurants();
+        addBasicConfigsUsers();
+//        addAllUsers();
+//        addAllRestaurants();
+//        addAllFoods();
         addRoutes();
+        for (User user : users){
+            System.out.println(user.getRole());
+        }
 
         //REGISTER
         registerUser.add(voltarLogar);
@@ -145,7 +160,6 @@ public class Aplicativo extends JFrame {
         registerFood.add(voltarFoodLogar);
 
         //------------------------ ADD //
-
         setVisible(true);
     }
     public boolean isAlpha(String name) {
@@ -156,7 +170,7 @@ public class Aplicativo extends JFrame {
                 continue;
             }
             if(!Character.isLetter(c)) {
-                System.out.println(c);
+//                System.out.println(c);
                 return false;
             }
         }
@@ -166,11 +180,14 @@ public class Aplicativo extends JFrame {
     public void cadastrarRestaurante(String[] allInOne, boolean showMessage){
         cadastrarRestaurante(allInOne[0], Integer.parseInt(allInOne[1]), Integer.parseInt(allInOne[2]), showMessage);
     }
+    public void cadastrarRestaurante(String[] various){
+        cadastrarRestaurante(various, false);
+    }
 
     public boolean cadastrarRestaurante(String nome, int x, int y, boolean showMessage){
         for (Restaurant rest : restaurants){
             if (Objects.equals(nome, rest.getName()) || !isAlpha(nome)){
-                System.out.println(nome);
+//                System.out.println(nome);
                 new ErrorPopUp("ATENTITON","It already has a restaurant with this name, or is invalid");
                 return false;
             }
@@ -178,6 +195,7 @@ public class Aplicativo extends JFrame {
         restaurants.add(new Restaurant(idRes, nome, x,y));
         idRes += 1;
         if (showMessage){
+            bc.addRestaurant(nome, x, y);
             new SuccessPopUp("Success", "Restaurant ["+nome+"] was created!\nNow add new foods!!!");
         }
         return true;
@@ -185,7 +203,6 @@ public class Aplicativo extends JFrame {
     public boolean cadastrarUsers(String nome, String CPF, int x, int y, Role role, boolean showMessage){
         for (User user : users){
             if (Objects.equals(nome, user.getName()) || !isAlpha(nome)){
-                System.out.println(nome);
                 new ErrorPopUp("ATENTITON","It already has a User with this name, or is invalid");
                 return false;
             }
@@ -197,6 +214,7 @@ public class Aplicativo extends JFrame {
         }
         idUser += 1;
         if (showMessage){
+            bc.addUser(nome,CPF,x,y,role);
             new SuccessPopUp("Success", "["+nome+"] you create your account");
         }
         return true;
@@ -295,9 +313,9 @@ public class Aplicativo extends JFrame {
 //            cart.setUser(login.getLoggedUser());
 //            cart.setAllRequests(getPedidos());
 //            cart.setAllRestaurants(getRestaurants());
-            System.out.println("zzzzz");
-            System.out.println(getPedidos());
-            System.out.println("zzzzz");
+//            System.out.println("zzzzz");
+//            System.out.println(getPedidos());
+//            System.out.println("zzzzz");
             shopping.setAllRequests(getPedidos());
             shopping.cleanFood();
             shopping.setAllRestaurants(getRestaurants());
@@ -364,6 +382,7 @@ public class Aplicativo extends JFrame {
         cadastrarUsers("Gustavo", "83", 50,50, false);
     }
     private void addAllRestaurants(){
+
         cadastrarRestaurante(cadRes.FirelinkShrimp(), false);
         cadastrarRestaurante(cadRes.SolaireSoup(), false);
         cadastrarRestaurante(cadRes.JohnGourmet(), false);
@@ -375,4 +394,40 @@ public class Aplicativo extends JFrame {
         cadFoods.johnGourmet(restaurants.get(2));
         cadFoods.dadora(restaurants.get(3));
     }
+    private void addBasicConfigsRestaurants(){
+        ArrayList<String> restaurants = bc.getRestsConfigs();
+        for (String restaurant : restaurants){
+            String[] rest = restaurant.split("-")[0].split(",");
+            cadastrarRestaurante(rest[0], Integer.parseInt(rest[1]), Integer.parseInt(rest[2]), false);
+            try {
+                String[] foods = restaurant.split("-")[1].split(";");
+                for (String food : foods){
+                    String[] f = food.split(",");
+                    Restaurant r = getRestaurant(rest[0]);
+                    if (r == null){
+                        break;
+                    }
+                    r.adicionarLanche(f[0],Float.parseFloat(f[1]), false);
+                }
+            }catch (ArrayIndexOutOfBoundsException e){
+                break;
+            }
+        }
+    }
+    private void addBasicConfigsUsers(){
+        ArrayList<String> users = bc.getUsers();
+        for (String user : users){
+            if (Objects.equals(user, "")){
+                continue;
+            }
+            String[] u = user.replace(";","").split(",");
+            if (Role.valueOf(u[4]) == Role.ADM){
+                this.users.add(new User(idUser, u[0], u[1], Integer.parseInt(u[2]), Integer.parseInt(u[3]), Role.ADM));
+                idUser++;
+            }else{
+                cadastrarUsers(u[0], u[1], Integer.parseInt(u[2]), Integer.parseInt(u[3]), Role.valueOf(u[4]), false);
+            }
+        }
+    }
+
 }

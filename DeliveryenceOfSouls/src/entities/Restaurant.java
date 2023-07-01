@@ -2,11 +2,13 @@ package entities;
 
 import components.ErrorPopUp;
 import components.SuccessPopUp;
+import configs.BasicConfigs;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Restaurant {
+    private BasicConfigs bc = new BasicConfigs();
     private String name;
     private int id;
     private int x;
@@ -52,7 +54,7 @@ public class Restaurant {
                 continue;
             }
             if(!Character.isLetter(c)) {
-                System.out.println(c);
+//                System.out.println(c);
                 return false;
             }
         }
@@ -60,19 +62,20 @@ public class Restaurant {
         return true;
     }
     public boolean adicionarLanche(String nome, float preco, boolean showMessage){
-        System.out.println(nome);
+//        System.out.println(nome);
         if (preco <= 0){
             new ErrorPopUp("ATENTITON","Price is invalid!!!");
             return false;
         }
         for (Food food : getCardapio()){
             if (Objects.equals(nome, food.getNome()) || !isAlpha(nome)){
-                System.out.println(nome);
+//                System.out.println(nome);
                 new ErrorPopUp("ATETON","It already has a Food with this name, or is invalid");
                 return false;
             }
         }
         if (showMessage){
+            bc.addFood(name,nome, preco);
             new SuccessPopUp("Success", "You Created ["+nome+"] in ["+name+"]");
         }
         comidas.add(new Food(idLancheAtual, nome, preco));
