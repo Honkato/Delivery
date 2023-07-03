@@ -1,0 +1,1 @@
+Acesso ADM é com o user e cpf sem nada, mas com ele é possivel criar mais users adm
